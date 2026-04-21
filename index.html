@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Grace Mutile | Full Stack · UI/UX · Analytics – Category Carousels</title>
+    <title>Grace Mutile | Full Stack · UI/UX · Analytics – Side Carousels</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -65,7 +65,6 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
             padding: 0.9rem 2rem;
             background: var(--accent-red);
@@ -190,9 +189,10 @@
             gap: 1rem;
         }
 
-        /* category project section */
+        /* category section with side arrows */
         .category-section {
             margin-bottom: 4rem;
+            position: relative;
         }
         .category-header {
             display: flex;
@@ -209,26 +209,80 @@
             background-clip: text;
             color: transparent;
         }
-        .carousel-controls-group {
+        /* carousel container with side buttons */
+        .carousel-wrapper {
+            position: relative;
             display: flex;
-            gap: 0.8rem;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .carousel-btn {
-            background: rgba(44,232,245,0.1);
+        .carousel-btn-side {
+            background: rgba(44,232,245,0.15);
             border: 1px solid var(--accent-teal);
             color: var(--accent-teal);
-            width: 40px;
-            height: 40px;
-            border-radius: 40px;
+            width: 44px;
+            height: 44px;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            backdrop-filter: blur(4px);
         }
-        .carousel-btn:hover {
+        .carousel-btn-side:hover {
             background: var(--accent-teal);
             color: #0b0e14;
+            transform: scale(1.02);
+        }
+        .projects-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* desktop: hide horizontal scroll, show as grid */
+        @media (min-width: 769px) {
+            .projects-grid {
+                overflow-x: visible;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            .carousel-btn-side {
+                display: none;
+            }
+            .carousel-wrapper {
+                display: block;
+            }
+        }
+        /* mobile: horizontal scroll + side arrows visible */
+        @media (max-width: 768px) {
+            .projects-grid {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1.2rem;
+                scroll-behavior: smooth;
+                padding-bottom: 0.5rem;
+            }
+            .projects-grid .project-card {
+                flex: 0 0 85%;
+                min-width: 270px;
+                scroll-snap-align: start;
+            }
+            .carousel-btn-side {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
 
-        /* project card styles */
+        /* card styles */
         .project-card {
             background: var(--bg-card);
             border-radius: 24px;
@@ -319,51 +373,12 @@
             color: white;
         }
 
-        /* grid layout (desktop default) */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.8rem;
-        }
-
-        /* mobile carousel: horizontal scroll + snap */
-        @media (max-width: 768px) {
-            .projects-grid {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 1.2rem;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 1rem;
-            }
-            .projects-grid .project-card {
-                flex: 0 0 85%;
-                min-width: 270px;
-                scroll-snap-align: start;
-            }
-            .carousel-controls-group {
-                display: flex;
-            }
-            .category-header {
-                margin-bottom: 0.8rem;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .carousel-controls-group {
-                display: none;
-            }
-        }
-
-        /* dots */
+        /* dots below carousel */
         .carousel-dots {
             display: flex;
             gap: 0.5rem;
             justify-content: center;
-            margin-top: 1rem;
+            margin-top: 1.2rem;
         }
         .dot {
             width: 8px;
@@ -489,87 +504,86 @@
         </div>
     </section>
 
-    <!-- ========== CATEGORY SECTIONS WITH INDEPENDENT CAROUSELS ========== -->
-    <!-- Category: Analytics & Insight -->
-    <section id="projects-analytics" class="section" style="padding-bottom: 2rem;">
+    <!-- ========== CATEGORY CAROUSELS WITH SIDE ARROWS ========== -->
+    <!-- Analytics & Insight -->
+    <section id="projects-analytics" class="section category-section" style="padding-bottom: 2rem;">
         <div class="container">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-chart-simple"></i> 📊 Analytics & Insight</h2>
-                <div class="carousel-controls-group" id="controls-analytics">
-                    <button class="carousel-btn prev-analytics"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-btn next-analytics"><i class="fas fa-chevron-right"></i></button>
-                </div>
             </div>
-            <div class="projects-grid" id="grid-analytics">
-                <!-- Analytics projects -->
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span></div><div class="project-title">Email Security Dashboard</div><div class="project-desc">Real-time metrics, quarantine management, trend visualization.</div><div class="project-highlight">📊 Chart.js · Tailwind · Dark mode</div><div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">Chart.js</span><span class="project-tag">Data Viz</span></div><div class="project-links"><a href="https://GraceM-Portfolio.github.io/email-dashboard/" class="project-link live" target="_blank">Live Demo</a><a href="https://github.com/gracem-portfolio/email-dashboard" class="project-link" target="_blank">GitHub</a></div></div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn-side prev-analytics"><i class="fas fa-chevron-left"></i></button>
+                <div class="projects-grid" id="grid-analytics">
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span></div><div class="project-title">Email Security Dashboard</div><div class="project-desc">Real-time metrics, quarantine management, trend visualization.</div><div class="project-highlight">📊 Chart.js · Tailwind · Dark mode</div><div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">Chart.js</span><span class="project-tag">Data Viz</span></div><div class="project-links"><a href="https://GraceM-Portfolio.github.io/email-dashboard/" class="project-link live" target="_blank">Live Demo</a><a href="https://github.com/gracem-portfolio/email-dashboard" class="project-link" target="_blank">GitHub</a></div></div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/archives-preview.jpg'); background-color:#2a2e3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span></div><div class="project-title">Case File Archives</div><div class="project-desc">Strategic research on power dynamics, covert language patterns.</div><div class="project-highlight">📈 Linguistic forensics & choice architecture</div><div class="project-tags"><span class="project-tag">Research Writing</span><span class="project-tag">Frameworks</span></div><div class="project-links"><a href="https://theintervalpause.com/archives" class="project-link live" target="_blank">Visit Site</a></div></div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span><span>Dev</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Behavioral intelligence platform, linguistic analysis & UX research.</div><div class="project-highlight">📊 +25% session duration · 1,200+ readers</div><div class="project-tags"><span class="project-tag">Behavioral Analytics</span><span class="project-tag">Figma</span><span class="project-tag">A/B Testing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live" target="_blank">Visit Site</a></div></div>
+                    </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/archives-preview.jpg'); background-color:#2a2e3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span></div><div class="project-title">Case File Archives</div><div class="project-desc">Strategic research on power dynamics, covert language patterns.</div><div class="project-highlight">📈 Linguistic forensics & choice architecture</div><div class="project-tags"><span class="project-tag">Research Writing</span><span class="project-tag">Frameworks</span></div><div class="project-links"><a href="https://theintervalpause.com/archives" class="project-link live" target="_blank">Visit Site</a></div></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span><span>Dev</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Behavioral intelligence platform, linguistic analysis & UX research.</div><div class="project-highlight">📊 +25% session duration · 1,200+ readers</div><div class="project-tags"><span class="project-tag">Behavioral Analytics</span><span class="project-tag">Figma</span><span class="project-tag">A/B Testing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live" target="_blank">Visit Site</a></div></div>
-                </div>
+                <button class="carousel-btn-side next-analytics"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div id="dots-analytics" class="carousel-dots"></div>
         </div>
     </section>
 
-    <!-- Category: UI/UX Design -->
-    <section id="projects-uiux" class="section" style="padding-bottom: 2rem;">
+    <!-- UI/UX Design -->
+    <section id="projects-uiux" class="section category-section" style="padding-bottom: 2rem;">
         <div class="container">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-palette"></i> 🎨 UI/UX Design</h2>
-                <div class="carousel-controls-group" id="controls-uiux">
-                    <button class="carousel-btn prev-uiux"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-btn next-uiux"><i class="fas fa-chevron-right"></i></button>
-                </div>
             </div>
-            <div class="projects-grid" id="grid-uiux">
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/1.png'); background-color:#2c3e4e;"></div>
-                    <div class="project-info"><div class="project-categories"><span>UI/UX Design</span></div><div class="project-title">Corporate Theme</div><div class="project-desc">Modern design system, Figma prototypes, React implementation.</div><div class="project-highlight">⚡ 95+ Lighthouse score</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">React.js</span><span class="project-tag">Responsive</span></div><div class="project-links"><a href="#" class="project-link live">Case Study</a></div></div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn-side prev-uiux"><i class="fas fa-chevron-left"></i></button>
+                <div class="projects-grid" id="grid-uiux">
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/1.png'); background-color:#2c3e4e;"></div>
+                        <div class="project-info"><div class="project-categories"><span>UI/UX Design</span></div><div class="project-title">Corporate Theme</div><div class="project-desc">Modern design system, Figma prototypes, React implementation.</div><div class="project-highlight">⚡ 95+ Lighthouse score</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">React.js</span><span class="project-tag">Responsive</span></div><div class="project-links"><a href="#" class="project-link live">Case Study</a></div></div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Analytics</span></div><div class="project-title">Interval Pause UX Audit</div><div class="project-desc">Complete redesign based on heatmaps and user interviews, increased retention.</div><div class="project-highlight">🔍 40% decrease in bounce rate</div><div class="project-tags"><span class="project-tag">User Testing</span><span class="project-tag">Wireframing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">View Site</a></div></div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Dev</span></div><div class="project-title">Dashboard UI Redesign</div><div class="project-desc">Accessible dark theme, intuitive data filtering, mobile-first approach.</div><div class="project-highlight">📱 WCAG 2.1 AA compliant</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">Design System</span></div><div class="project-links"><a href="#" class="project-link live">Prototype</a></div></div>
+                    </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Analytics</span></div><div class="project-title">Interval Pause UX Audit</div><div class="project-desc">Complete redesign based on heatmaps and user interviews, increased retention.</div><div class="project-highlight">🔍 40% decrease in bounce rate</div><div class="project-tags"><span class="project-tag">User Testing</span><span class="project-tag">Wireframing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">View Site</a></div></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Dev</span></div><div class="project-title">Dashboard UI Redesign</div><div class="project-desc">Accessible dark theme, intuitive data filtering, mobile-first approach.</div><div class="project-highlight">📱 WCAG 2.1 AA compliant</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">Design System</span></div><div class="project-links"><a href="#" class="project-link live">Prototype</a></div></div>
-                </div>
+                <button class="carousel-btn-side next-uiux"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div id="dots-uiux" class="carousel-dots"></div>
         </div>
     </section>
 
-    <!-- Category: Web Development -->
-    <section id="projects-dev" class="section" style="padding-bottom: 2rem;">
+    <!-- Web Development -->
+    <section id="projects-dev" class="section category-section" style="padding-bottom: 2rem;">
         <div class="container">
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-code-branch"></i> 💻 Web Development</h2>
-                <div class="carousel-controls-group" id="controls-dev">
-                    <button class="carousel-btn prev-dev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="carousel-btn next-dev"><i class="fas fa-chevron-right"></i></button>
-                </div>
             </div>
-            <div class="projects-grid" id="grid-dev">
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/store.png'); background-color:#2c3e2f;"></div>
-                    <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">E‑commerce Store</div><div class="project-desc">Full-stack MERN app with cart, auth, and optimized checkout.</div><div class="project-highlight">🛒 30% faster checkout · 22% conversion lift</div><div class="project-tags"><span class="project-tag">React.js</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div><div class="project-links"><a href="#" class="project-link live">Demo</a><a href="#" class="project-link">GitHub</a></div></div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn-side prev-dev"><i class="fas fa-chevron-left"></i></button>
+                <div class="projects-grid" id="grid-dev">
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/store.png'); background-color:#2c3e2f;"></div>
+                        <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">E‑commerce Store</div><div class="project-desc">Full-stack MERN app with cart, auth, and optimized checkout.</div><div class="project-highlight">🛒 30% faster checkout · 22% conversion lift</div><div class="project-tags"><span class="project-tag">React.js</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div><div class="project-links"><a href="#" class="project-link live">Demo</a><a href="#" class="project-link">GitHub</a></div></div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/tourism.png'); background-color:#3a4a3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">Tourism Platform</div><div class="project-desc">Interactive maps, analytics integration, 10k+ monthly visitors.</div><div class="project-highlight">🗺️ 40% engagement rate</div><div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Maps API</span><span class="project-tag">Analytics</span></div><div class="project-links"><a href="#" class="project-link live">Live Site</a></div></div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
+                        <div class="project-info"><div class="project-categories"><span>Web Development</span><span>Analytics</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Custom CMS, performance optimized, behavioral tracking.</div><div class="project-highlight">⚡ Lighthouse 98 · Core Web Vitals</div><div class="project-tags"><span class="project-tag">HTML/CSS/JS</span><span class="project-tag">Node</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">Visit</a></div></div>
+                    </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/tourism.png'); background-color:#3a4a3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">Tourism Platform</div><div class="project-desc">Interactive maps, analytics integration, 10k+ monthly visitors.</div><div class="project-highlight">🗺️ 40% engagement rate</div><div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Maps API</span><span class="project-tag">Analytics</span></div><div class="project-links"><a href="#" class="project-link live">Live Site</a></div></div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
-                    <div class="project-info"><div class="project-categories"><span>Web Development</span><span>Analytics</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Custom CMS, performance optimized, behavioral tracking.</div><div class="project-highlight">⚡ Lighthouse 98 · Core Web Vitals</div><div class="project-tags"><span class="project-tag">HTML/CSS/JS</span><span class="project-tag">Node</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">Visit</a></div></div>
-                </div>
+                <button class="carousel-btn-side next-dev"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div id="dots-dev" class="carousel-dots"></div>
         </div>
@@ -619,11 +633,11 @@
 
             // Resume alert
             function downloadResume() { alert("📄 Resume demo: PDF will be available for download."); }
-            document.querySelectorAll('#resumeNav, #downloadResumeHero, #footerResume').forEach(el => {
+            document.querySelectorAll('#resumeNav, #downloadResumeHero').forEach(el => {
                 if(el) el.addEventListener('click', (e) => { e.preventDefault(); downloadResume(); });
             });
 
-            // Carousel logic for each category
+            // Carousel logic for each category (side buttons + dots)
             function initCategoryCarousel(gridId, prevBtnClass, nextBtnClass, dotsId) {
                 const grid = document.getElementById(gridId);
                 if(!grid) return;
@@ -715,7 +729,6 @@
                 if(prevBtn) prevBtn.addEventListener('click', scrollPrev);
                 if(nextBtn) nextBtn.addEventListener('click', scrollNext);
                 grid.addEventListener('scroll', () => { requestAnimationFrame(onScrollUpdate); });
-                // initial update
                 updateDots();
                 if(window.innerWidth <= 768) setTimeout(() => { onScrollUpdate(); }, 100);
                 window.addEventListener('resize', () => {
@@ -724,15 +737,15 @@
                 });
             }
 
-            // Initialize all three carousels
             initCategoryCarousel('grid-analytics', '.prev-analytics', '.next-analytics', 'dots-analytics');
             initCategoryCarousel('grid-uiux', '.prev-uiux', '.next-uiux', 'dots-uiux');
             initCategoryCarousel('grid-dev', '.prev-dev', '.next-dev', 'dots-dev');
 
-            // Add fallback for footer resume link (missing in footer)
+            // add footer resume link
             const footerDiv = document.querySelector('footer .container');
             if(footerDiv && !document.getElementById('footerResume')) {
                 const resumeLink = document.createElement('div');
+                resumeLink.style.marginTop = '0.8rem';
                 resumeLink.innerHTML = '<a href="#" id="footerResume" style="color:var(--accent-teal); text-decoration:none;">📥 Resume</a>';
                 footerDiv.appendChild(resumeLink);
                 document.getElementById('footerResume')?.addEventListener('click', (e) => { e.preventDefault(); downloadResume(); });
