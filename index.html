@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Grace Mutile | Full Stack Dev · UI/UX · Analytics & Insight – Available now</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -259,7 +259,7 @@
         .service-icon { font-size: 2.4rem; color: var(--accent-teal); margin-bottom: 1.5rem; }
         .service-title { font-size: 1.6rem; margin-bottom: 1rem; }
 
-        /* ----- PROJECTS ----- */
+        /* ----- PROJECTS (BASE GRID) ----- */
         .project-filters {
             display: flex;
             justify-content: center;
@@ -292,7 +292,9 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 2rem;
+            transition: all 0.2s;
         }
+
         .project-card {
             background: var(--bg-card);
             border-radius: 24px;
@@ -480,24 +482,99 @@
             border-top: 1px solid #222;
         }
 
+        /* ========== MOBILE CAROUSEL STYLES (only active on small screens) ========== */
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .carousel-btn {
+            background: rgba(44,232,245,0.15);
+            border: 1px solid var(--accent-teal);
+            color: var(--accent-teal);
+            width: 44px;
+            height: 44px;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .carousel-btn:hover {
+            background: var(--accent-teal);
+            color: #0b0e14;
+            transform: scale(1.02);
+        }
+        .carousel-dots {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .dot.active {
+            width: 28px;
+            background: var(--accent-teal);
+        }
+
+        /* Mobile carousel mode overrides */
+        @media (max-width: 768px) {
+            .project-grid.mobile-carousel-active {
+                display: flex !important;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 1.5rem;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                padding-bottom: 1rem;
+            }
+            .project-grid.mobile-carousel-active .project-card {
+                flex: 0 0 85%;
+                min-width: 260px;
+                scroll-snap-align: start;
+                margin-bottom: 0.5rem;
+                transform: translateY(0);
+            }
+            .project-grid.mobile-carousel-active {
+                grid-template-columns: unset;
+            }
+            /* hide default grid columns on mobile when carousel active */
+            .project-grid:not(.mobile-carousel-active) {
+                grid-template-columns: 1fr;
+            }
+            .services-grid, .skills-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-title { font-size: 2.5rem; }
+            .hero-metrics { gap: 1.5rem; }
+            .experience-timeline::before { left: 18px; }
+            .experience-item { padding-left: 45px; }
+        }
+
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.7); }
             70% { box-shadow: 0 0 0 8px rgba(46,204,113,0); }
             100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
         }
 
-        /* mobile */
-        @media (max-width: 768px) {
-            .nav-links { display: none; flex-direction: column; background: #0f1115; position: absolute; top: 70px; left: 0; width: 100%; padding: 1.5rem; }
-            .nav-links.active { display: flex; }
-            .menu-toggle { display: flex; flex-direction: column; gap: 5px; }
-            .menu-toggle span { width: 28px; height: 3px; background: white; border-radius: 4px; }
-            .hero-title { font-size: 2.5rem; }
-            .services-grid, .skills-container { grid-template-columns: 1fr; }
-            .hero-metrics { gap: 1.5rem; }
-            .experience-timeline::before { left: 18px; }
-            .experience-item { padding-left: 45px; }
-        }
+        .animate { opacity: 0; transition: opacity 0.6s ease, transform 0.5s; }
+        .animate.visible { opacity: 1; }
     </style>
 </head>
 <body>
@@ -516,8 +593,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Analytics-Focused) -->
-        <!-- Hero Section (ATS-Optimized, Direct) -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
             <div class="availability-badge animate">
@@ -544,45 +620,20 @@
         </div>
     </section>
 
-    <!-- Services Section (Keyword-Dense, ATS-Ready) -->
+    <!-- Services Section -->
     <section id="services" class="section">
         <div class="container">
             <h2 class="section-title">Core Competencies</h2>
             <div class="services-grid">
-                <!-- Full Stack Development (1st) -->
-                <div class="service-card animate">
-                    <div class="service-icon"><i class="fas fa-code"></i></div>
-                    <div class="service-title">Full Stack Development</div>
-                    <div class="service-desc">
-                        <strong>React · Node.js · Python · Django · SQL · MongoDB</strong><br>
-                        Building scalable, high‑performance web applications with REST APIs, database integration, and cloud deployment.
-                    </div>
-                </div>
-                
-                <!-- UI/UX Design (2nd) -->
-                <div class="service-card animate delay-1">
-                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
-                    <div class="service-title">UI/UX Design</div>
-                    <div class="service-desc">
-                        <strong>Figma · User Research · Wireframing · Prototyping · Usability Testing · WCAG</strong><br>
-                        Designing intuitive, accessible interfaces informed by user behavior and A/B testing.
-                    </div>
-                </div>
-                
-                <!-- Data Analytics & Reporting (3rd) -->
-                <div class="service-card animate delay-2">
-                    <div class="service-icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="service-title">Data Analytics & Reporting</div>
-                    <div class="service-desc">
-                        <strong>SQL · Python (Pandas) · Data Visualization · Behavioral Analytics · A/B Testing</strong><br>
-                        Translating complex data into actionable insights, dashboards, and strategic recommendations.
-                    </div>
-                </div>
+                <div class="service-card animate"><div class="service-icon"><i class="fas fa-code"></i></div><div class="service-title">Full Stack Development</div><div class="service-desc"><strong>React · Node.js · Python · Django · SQL · MongoDB</strong><br>Building scalable, high‑performance web applications with REST APIs, database integration, and cloud deployment.</div></div>
+                <div class="service-card animate delay-1"><div class="service-icon"><i class="fas fa-paint-brush"></i></div><div class="service-title">UI/UX Design</div><div class="service-desc"><strong>Figma · User Research · Wireframing · Prototyping · Usability Testing · WCAG</strong><br>Designing intuitive, accessible interfaces informed by user behavior and A/B testing.</div></div>
+                <div class="service-card animate delay-2"><div class="service-icon"><i class="fas fa-chart-line"></i></div><div class="service-title">Data Analytics & Reporting</div><div class="service-desc"><strong>SQL · Python (Pandas) · Data Visualization · Behavioral Analytics · A/B Testing</strong><br>Translating complex data into actionable insights, dashboards, and strategic recommendations.</div></div>
             </div>
         </div>
     </section>
-    <!-- Project Filters -->
-    <section class="project-filters">
+
+    <!-- Project Filters + Carousel Area -->
+    <div class="project-filters">
         <div class="container">
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All</button>
@@ -591,195 +642,51 @@
                 <button class="filter-btn" data-filter="dev">Web Development</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Project Showcase -->
     <section id="projects" class="section" style="padding-top:2rem;">
         <div class="container">
             <h2 class="section-title">Featured Work & Impact</h2>
-            <div class="project-grid">
-                <!-- Analytics & Insight Project 1 -->
-              <!-- Add this inside the <div class="project-grid"> of newportfolio.html -->
-<div class="project-card analyst ui dev">
-    <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color: #1e2a3a;"></div>
-    <div class="project-info">
-        <div class="project-categories">
-            <span class="analyst-category">Analytics & Insight</span>
-            <span class="ui-category">UI/UX Design</span>
-            <span class="dev-category">Web Development</span>
-        </div>
-        <div class="project-title">Email Security-Analytics Dashboard </div>
-        <div class="project-desc">Interactive email dashboard with real-time metrics, trend visualization, and quarantine management.</div>
-        <div class="project-highlight">📊 Chart.js · Tailwind · Dark mode · 8+ interactive screens</div>
-        <div class="project-tags">
-            <span class="project-tag">JavaScript</span>
-            <span class="project-tag">Chart.js</span>
-            <span class="project-tag">Tailwind CSS</span>
-            <span class="project-tag">Data Visualization</span>
-        </div>
-        <div class="project-links">
-<!-- Replace the existing link with your live domain -->
- <a href="https://GraceM-Portfolio.github.io/email-dashboard/" class="project-link live" target="_blank">Live Demo</a>
-            <a href="https://github.com/gracem-portfolio/email-dashboard" class="project-link" target="_blank">GitHub</a>        </div>
-    </div>
-</div>
-
-                <!-- Analytics & Insight Project 2 -->
-                <div class="project-card analyst">
-                    <div class="project-image" style="background-image: url('images/archives-preview.jpg'); background-color: #2a2e3a;"></div>
-                    <div class="project-info">
-                        <div class="project-categories">
-                            <span class="analyst-category">Analytics & Insight</span>
-                        </div>
-                        <div class="project-title">Case File Archives</div>
-                        <div class="project-desc">Strategic research collection decoding power dynamics, covert language patterns, and attention sovereignty.</div>
-                        <div class="project-highlight">📈 Frameworks used in negotiation training and UX research</div>
-                        <div class="project-tags">
-                            <span class="project-tag">Linguistic Forensics</span>
-                            <span class="project-tag">Choice Architecture</span>
-                            <span class="project-tag">Research Writing</span>
-                        </div>
-                        <div class="project-links">
-<a href="https://theintervalpause.com/archives" class="project-link live" target="_blank">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UI/UX Project – The Interval Pause -->
-<!-- Replace both existing "Interval Pause Lab" cards with this single card -->
-<div class="project-card analyst ui dev">
-    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color: #1e2a3a;"></div>
-    <div class="project-info">
-        <div class="project-categories">
-            <span class="analyst-category">Analytics & Insight</span>
-            <span class="ui-category">UI/UX Design</span>
-            <span class="dev-category">Web Development</span>
-        </div>
-        <div class="project-title">The Interval Pause Lab</div>
-        <div class="project-desc">Forensic behavioral intelligence platform analyzing linguistic patterns, social influence, and decision architecture. End‑to‑end design and development.</div>
-        <div class="project-highlight">📊 Data‑driven frameworks adopted by 1,200+ readers · +25% session duration</div>
-        <div class="project-tags">
-            <span class="project-tag">Behavioral Analytics</span>
-            <span class="project-tag">Linguistic Forensics</span>
-            <span class="project-tag">Figma</span>
-            <span class="project-tag">HTML/CSS/JS</span>
-            <span class="project-tag">A/B Testing</span>
-        </div>
-        <div class="project-links">
-<!-- Replace the existing link with your live domain -->
-<a href="https://theintervalpause.com" class="project-link live" target="_blank">Visit Site</a>        </div>
-    </div>
-</div>
-                <!-- UI/UX Project 2 (Corporate Theme) -->
-                <div class="project-card ui">
-                    <div class="project-image" style="background-image: url('images/1.png');"></div>
-                    <div class="project-info">
-                        <div class="project-categories"><span class="ui-category">UI/UX Design</span></div>
-                        <div class="project-title">Corporate Theme</div>
-                        <div class="project-desc">Designed and developed using Figma prototypes and React.js, with measurable UX improvements.</div>
-                        <div class="project-highlight">⚡ 95+ Lighthouse performance</div>
-                        <div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">React.js</span><span class="project-tag">Responsive</span></div>
-                    </div>
-                </div>
-
-                <!-- Web Dev Project 1 (E‑commerce) -->
-                <div class="project-card dev">
-                    <div class="project-image" style="background-image: url('images/store.png');"></div>
-                    <div class="project-info">
-                        <div class="project-categories"><span class="dev-category">Web Development</span></div>
-                        <div class="project-title">E‑commerce Store</div>
-                        <div class="project-desc">High-performance online store with custom database integration. Optimized checkout flow increased conversions.</div>
-                        <div class="project-highlight">🛒 30% faster checkout, 22% conversion lift</div>
-                        <div class="project-tags"><span class="project-tag">React.js</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div>
-                    </div>
-                </div>
-                
-                <!-- Web Dev Project 2 (Tourism) -->
-                <div class="project-card dev">
-                    <div class="project-image" style="background-image: url('images/tourism.png');"></div>
-                    <div class="project-info">
-                        <div class="project-categories"><span class="dev-category">Web Development</span></div>
-                        <div class="project-title">Tourism Website</div>
-                        <div class="project-desc">Travel destination platform with interactive maps and analytics integration for user behavior tracking.</div>
-                        <div class="project-highlight">🗺️ 10k+ monthly visitors, 40% engagement rate</div>
-                        <div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Node</span><span class="project-tag">Maps API</span></div>
-                    </div>
-                </div>
+            <div class="project-grid" id="projectGrid">
+                <!-- Projects (same content, updated links) -->
+                <div class="project-card analyst ui dev"><div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color: #1e2a3a;"></div><div class="project-info"><div class="project-categories"><span class="analyst-category">Analytics & Insight</span><span class="ui-category">UI/UX Design</span><span class="dev-category">Web Development</span></div><div class="project-title">Email Security-Analytics Dashboard </div><div class="project-desc">Interactive email dashboard with real-time metrics, trend visualization, and quarantine management.</div><div class="project-highlight">📊 Chart.js · Tailwind · Dark mode · 8+ interactive screens</div><div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">Chart.js</span><span class="project-tag">Tailwind CSS</span><span class="project-tag">Data Visualization</span></div><div class="project-links"><a href="https://GraceM-Portfolio.github.io/email-dashboard/" class="project-link live" target="_blank">Live Demo</a><a href="https://github.com/gracem-portfolio/email-dashboard" class="project-link" target="_blank">GitHub</a></div></div></div>
+                <div class="project-card analyst"><div class="project-image" style="background-image: url('images/archives-preview.jpg'); background-color: #2a2e3a;"></div><div class="project-info"><div class="project-categories"><span class="analyst-category">Analytics & Insight</span></div><div class="project-title">Case File Archives</div><div class="project-desc">Strategic research collection decoding power dynamics, covert language patterns, and attention sovereignty.</div><div class="project-highlight">📈 Frameworks used in negotiation training and UX research</div><div class="project-tags"><span class="project-tag">Linguistic Forensics</span><span class="project-tag">Choice Architecture</span><span class="project-tag">Research Writing</span></div><div class="project-links"><a href="https://theintervalpause.com/archives" class="project-link live" target="_blank">Visit Site</a></div></div></div>
+                <div class="project-card analyst ui dev"><div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color: #1e2a3a;"></div><div class="project-info"><div class="project-categories"><span class="analyst-category">Analytics & Insight</span><span class="ui-category">UI/UX Design</span><span class="dev-category">Web Development</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Forensic behavioral intelligence platform analyzing linguistic patterns, social influence, and decision architecture. End‑to‑end design and development.</div><div class="project-highlight">📊 Data‑driven frameworks adopted by 1,200+ readers · +25% session duration</div><div class="project-tags"><span class="project-tag">Behavioral Analytics</span><span class="project-tag">Linguistic Forensics</span><span class="project-tag">Figma</span><span class="project-tag">HTML/CSS/JS</span><span class="project-tag">A/B Testing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live" target="_blank">Visit Site</a></div></div></div>
+                <div class="project-card ui"><div class="project-image" style="background-image: url('images/1.png');"></div><div class="project-info"><div class="project-categories"><span class="ui-category">UI/UX Design</span></div><div class="project-title">Corporate Theme</div><div class="project-desc">Designed and developed using Figma prototypes and React.js, with measurable UX improvements.</div><div class="project-highlight">⚡ 95+ Lighthouse performance</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">React.js</span><span class="project-tag">Responsive</span></div></div></div>
+                <div class="project-card dev"><div class="project-image" style="background-image: url('images/store.png');"></div><div class="project-info"><div class="project-categories"><span class="dev-category">Web Development</span></div><div class="project-title">E‑commerce Store</div><div class="project-desc">High-performance online store with custom database integration. Optimized checkout flow increased conversions.</div><div class="project-highlight">🛒 30% faster checkout, 22% conversion lift</div><div class="project-tags"><span class="project-tag">React.js</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div></div></div>
+                <div class="project-card dev"><div class="project-image" style="background-image: url('images/tourism.png');"></div><div class="project-info"><div class="project-categories"><span class="dev-category">Web Development</span></div><div class="project-title">Tourism Website</div><div class="project-desc">Travel destination platform with interactive maps and analytics integration for user behavior tracking.</div><div class="project-highlight">🗺️ 10k+ monthly visitors, 40% engagement rate</div><div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Node</span><span class="project-tag">Maps API</span></div></div></div>
+            </div>
+            <!-- Carousel Controls (hidden by default, shown on mobile) -->
+            <div id="carouselControls" class="carousel-controls" style="display: none;">
+                <button class="carousel-btn" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+                <div id="carouselDots" class="carousel-dots"></div>
+                <button class="carousel-btn" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <div class="experience-date">2021 – Present</div>
-                    <h3 class="experience-role">Freelance Developer, Designer & Analyst</h3>
-                    <h4 class="experience-company">Self-Employed · Clients: Tech startups, SMEs, nonprofits</h4>
-                    <ul class="experience-achievements">
-                        <li>Designed and developed The Interval Pause Lab, a behavioral analytics platform that increased reader engagement through data-informed UX.</li>
-                        <li>Delivered responsive web apps using React, Node, and Django; used analytics to drive iterative improvements.</li>
-                        <li>Collaborated in Agile sprints, reducing cross-browser issues by 40% through systematic testing and performance metrics.</li>
-                        <li>Created WCAG-compliant interfaces informed by user behavior data and accessibility audits.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="experience" class="section"><div class="container"><h2 class="section-title">Professional Experience</h2><div class="experience-timeline"><div class="experience-item"><div class="experience-date">2021 – Present</div><h3 class="experience-role">Freelance Developer, Designer & Analyst</h3><h4 class="experience-company">Self-Employed · Clients: Tech startups, SMEs, nonprofits</h4><ul class="experience-achievements"><li>Designed and developed The Interval Pause Lab, a behavioral analytics platform that increased reader engagement through data-informed UX.</li><li>Delivered responsive web apps using React, Node, and Django; used analytics to drive iterative improvements.</li><li>Collaborated in Agile sprints, reducing cross-browser issues by 40% through systematic testing and performance metrics.</li><li>Created WCAG-compliant interfaces informed by user behavior data and accessibility audits.</li></ul></div></div></div></section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <div class="container">
-            <h2 class="section-title">Technical & Analytical Expertise</h2>
-            <div class="skills-container">
-                <div class="skill-category">
-                    <h3><i class="fas fa-paint-brush"></i> UI/UX Design</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">Figma</span><span class="skill-tag">Adobe XD</span><span class="skill-tag">Wireframing</span><span class="skill-tag">Prototyping</span><span class="skill-tag">User Research</span><span class="skill-tag">Usability Testing</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Development</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">HTML5/CSS3</span><span class="skill-tag">JavaScript</span><span class="skill-tag">React.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">Django</span><span class="skill-tag">SQL/NoSQL</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-bar"></i> Analytics & Insight</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">Behavioral Analytics</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Data Storytelling</span><span class="skill-tag">Research Writing</span><span class="skill-tag">Framework Design</span><span class="skill-tag">Strategic Comms</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Skills -->
+    <section id="skills" class="section"><div class="container"><h2 class="section-title">Technical & Analytical Expertise</h2><div class="skills-container"><div class="skill-category"><h3><i class="fas fa-paint-brush"></i> UI/UX Design</h3><div class="skill-list"><span class="skill-tag">Figma</span><span class="skill-tag">Adobe XD</span><span class="skill-tag">Wireframing</span><span class="skill-tag">Prototyping</span><span class="skill-tag">User Research</span><span class="skill-tag">Usability Testing</span></div></div><div class="skill-category"><h3><i class="fas fa-code"></i> Development</h3><div class="skill-list"><span class="skill-tag">HTML5/CSS3</span><span class="skill-tag">JavaScript</span><span class="skill-tag">React.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">Django</span><span class="skill-tag">SQL/NoSQL</span></div></div><div class="skill-category"><h3><i class="fas fa-chart-bar"></i> Analytics & Insight</h3><div class="skill-list"><span class="skill-tag">Behavioral Analytics</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Data Storytelling</span><span class="skill-tag">Research Writing</span><span class="skill-tag">Framework Design</span><span class="skill-tag">Strategic Comms</span></div></div></div></div></section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section (fixed social links) -->
     <section id="contact" class="section">
         <div class="container contact-content">
             <h2 class="section-title">Let's Connect</h2>
             <p class="contact-text">I'm actively looking for new opportunities in development, design, and analytics. I reply within hours.</p>
             <a href="mailto:gracemutilem@gmail.com" class="btn btn-resume" style="margin-bottom:1.5rem;"><i class="fas fa-envelope"></i> gracemutilem@gmail.com</a>
             <div class="social-links">
-                <a href="#" class="https://www.linkedin.com/in/grace-m-572871225/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="https://github.com/GraceM-Portfolio" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" class="https://theintervalpause.com/" aria-label="The Interval Pause"><i class="fas fa-chart-line"></i></a>
+                <a href="https://www.linkedin.com/in/grace-m-572871225/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/GraceM-Portfolio" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://theintervalpause.com/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="The Interval Pause"><i class="fas fa-chart-line"></i></a>
             </div>
-         
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content" style="display:flex; justify-content:space-between; align-items:center;">
-                <div class="footer-logo">Grace<span>M</span></div>
-                <div>© 2026 Grace Mutile – Full Stack · UI/UX · Analytics & Insight</div>
-                <div><a href="#" id="footerResume" style="color:var(--accent-teal); text-decoration:none;">📥 Resume</a></div>
-            </div>
-        </div>
+        <div class="container"><div class="footer-content" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;"><div class="footer-logo">Grace<span>M</span></div><div>© 2026 Grace Mutile – Full Stack · UI/UX · Analytics & Insight</div><div><a href="#" id="footerResume" style="color:var(--accent-teal); text-decoration:none;">📥 Resume</a></div></div></div>
     </footer>
 
     <script>
@@ -788,7 +695,6 @@
             const toggle = document.getElementById('menuToggle');
             const nav = document.getElementById('navLinks');
             if(toggle) toggle.addEventListener('click', ()=>{ nav.classList.toggle('active'); });
-
             // Smooth scroll
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -798,52 +704,195 @@
                     if(target) {
                         e.preventDefault();
                         window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
-                        nav.classList.remove('active');
+                        if(nav) nav.classList.remove('active');
                     }
                 });
             });
 
-            // Filter projects (supports 'analyst')
+            // Filter projects
             const filterBtns = document.querySelectorAll('.filter-btn');
             const cards = document.querySelectorAll('.project-card');
+            const projectGrid = document.getElementById('projectGrid');
+            
+            function applyFilter(filterValue) {
+                cards.forEach(card => {
+                    if(filterValue === 'all' || card.classList.contains(filterValue)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                // after filtering, update carousel dots and scroll position
+                if(window.innerWidth <= 768) updateCarouselDotsAndScroll();
+            }
+
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', ()=>{
                     const filter = btn.dataset.filter;
                     filterBtns.forEach(b=>b.classList.remove('active'));
                     btn.classList.add('active');
-                    cards.forEach(card => {
-                        if(filter === 'all' || card.classList.contains(filter)) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    applyFilter(filter);
                 });
             });
 
-            // Resume download simulation
-            function downloadResume() {
-                alert("📄 Resume download: Will Replace with actual file.)");
-            }
+            // Resume download
+            function downloadResume() { alert("📄 Resume demo: replace with actual PDF file."); }
             document.querySelectorAll('#resumeNav, #downloadResumeHero, #footerResume').forEach(el => {
                 el.addEventListener('click', (e) => { e.preventDefault(); downloadResume(); });
             });
 
-            // Intersection Observer for fade
+            // Intersection Observer
             const animatedElements = document.querySelectorAll('.animate');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if(entry.isIntersecting) entry.target.style.opacity = 1; });
+                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
             }, { threshold: 0.1 });
-            animatedElements.forEach(el => { el.style.opacity = 0; el.style.transition = 'opacity 0.6s ease, transform 0.5s'; observer.observe(el); });
-
-            // Sticky nav bg
+            animatedElements.forEach(el => { observer.observe(el); });
+            
             window.addEventListener('scroll', ()=>{
                 const navBar = document.querySelector('.nav');
                 if(window.scrollY > 20) navBar.style.background = 'rgba(15,17,21,0.98)';
                 else navBar.style.background = 'rgba(15,17,21,0.92)';
             });
+
+            // ---------- MOBILE CAROUSEL LOGIC ----------
+            const controlsDiv = document.getElementById('carouselControls');
+            const dotsContainer = document.getElementById('carouselDots');
+            const prevBtn = document.getElementById('carouselPrev');
+            const nextBtn = document.getElementById('carouselNext');
+            
+            let currentActiveDot = 0;
+            let scrollTimeout = null;
+
+            function getVisibleCards() {
+                return Array.from(cards).filter(card => card.style.display !== 'none');
+            }
+
+            function updateDots() {
+                if(!dotsContainer) return;
+                const visible = getVisibleCards();
+                dotsContainer.innerHTML = '';
+                if(visible.length <= 1) {
+                    dotsContainer.style.display = 'none';
+                    return;
+                }
+                dotsContainer.style.display = 'flex';
+                visible.forEach((_, idx) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if(idx === currentActiveDot) dot.classList.add('active');
+                    dot.addEventListener('click', () => {
+                        const targetCard = visible[idx];
+                        if(targetCard) targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                        setActiveDot(idx);
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            }
+
+            function setActiveDot(index) {
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach((dot, i) => {
+                    if(i === index) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+                currentActiveDot = index;
+            }
+
+            function updateCarouselDotsAndScroll() {
+                if(window.innerWidth > 768) return;
+                const visible = getVisibleCards();
+                if(visible.length === 0) return;
+                // find which card is most visible in scroll container
+                const container = projectGrid;
+                const containerRect = container.getBoundingClientRect();
+                let bestIndex = 0;
+                let bestVisibleWidth = 0;
+                visible.forEach((card, idx) => {
+                    const rect = card.getBoundingClientRect();
+                    const visiblePart = Math.min(rect.right, containerRect.right) - Math.max(rect.left, containerRect.left);
+                    if(visiblePart > bestVisibleWidth) {
+                        bestVisibleWidth = visiblePart;
+                        bestIndex = idx;
+                    }
+                });
+                setActiveDot(bestIndex);
+            }
+
+            function scrollToPrev() {
+                const visible = getVisibleCards();
+                if(visible.length <= 1) return;
+                let newIndex = currentActiveDot - 1;
+                if(newIndex < 0) newIndex = visible.length - 1;
+                visible[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                setActiveDot(newIndex);
+            }
+
+            function scrollToNext() {
+                const visible = getVisibleCards();
+                if(visible.length <= 1) return;
+                let newIndex = currentActiveDot + 1;
+                if(newIndex >= visible.length) newIndex = 0;
+                visible[newIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                setActiveDot(newIndex);
+            }
+
+            function initMobileCarousel() {
+                const isMobile = window.innerWidth <= 768;
+                if(isMobile) {
+                    projectGrid.classList.add('mobile-carousel-active');
+                    controlsDiv.style.display = 'flex';
+                    // attach scroll listener to update dots while scrolling
+                    projectGrid.addEventListener('scroll', () => {
+                        if(scrollTimeout) clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            updateCarouselDotsAndScroll();
+                        }, 80);
+                    });
+                    updateDots();
+                    updateCarouselDotsAndScroll();
+                    if(prevBtn) prevBtn.removeEventListener('click', scrollToPrev);
+                    if(nextBtn) nextBtn.removeEventListener('click', scrollToNext);
+                    prevBtn.addEventListener('click', scrollToPrev);
+                    nextBtn.addEventListener('click', scrollToNext);
+                } else {
+                    projectGrid.classList.remove('mobile-carousel-active');
+                    controlsDiv.style.display = 'none';
+                    // remove listeners to avoid conflicts
+                }
+            }
+
+            // re-init on resize and after filter updates (already calling updateCarouselDotsAndScroll)
+            window.addEventListener('resize', () => {
+                initMobileCarousel();
+                if(window.innerWidth <= 768) updateCarouselDotsAndScroll();
+                else {
+                    // reset grid display
+                    cards.forEach(c => c.style.display = 'block');
+                    applyFilter(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
+                }
+            });
+            
+            // override filter to also refresh carousel after each filter
+            const originalApply = applyFilter;
+            window.applyFilter = function(f) { originalApply(f); if(window.innerWidth <= 768) { updateDots(); updateCarouselDotsAndScroll(); } };
+            applyFilter = function(f) { originalApply(f); if(window.innerWidth <= 768) { updateDots(); updateCarouselDotsAndScroll(); } };
+            window.applyFilter = applyFilter;
+            // replace the filter binding
+            filterBtns.forEach(btn => {
+                btn.removeEventListener('click', btn._listener);
+                const handler = () => {
+                    const filter = btn.dataset.filter;
+                    filterBtns.forEach(b=>b.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyFilter(filter);
+                };
+                btn.addEventListener('click', handler);
+                btn._listener = handler;
+            });
+            
+            initMobileCarousel();
+            applyFilter('all');
         })();
     </script>
-    <style>.animate { opacity: 0; } .animate.visible { opacity: 1; }</style>
 </body>
 </html>
