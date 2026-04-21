@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Grace Mutile | Full Stack · UI/UX · Analytics – Clean Carousels (no buttons)</title>
+    <title>Grace Mutile | Full Stack · UI/UX · Analytics – Education</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -318,17 +318,58 @@
         }
 
         /* other sections */
-        .services-grid, .skills-container {
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(3,1fr);
             gap: 2rem;
         }
-        .service-card, .skill-category {
+        .service-card {
             background: var(--bg-card);
             padding: 2rem;
             border-radius: 28px;
             border: 1px solid var(--border-light);
         }
+        /* Education cards (replaces skills) */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .education-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 28px;
+            border: 1px solid var(--border-light);
+            transition: transform 0.2s;
+        }
+        .education-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-teal);
+        }
+        .education-icon {
+            font-size: 2.5rem;
+            color: var(--accent-teal);
+            margin-bottom: 1rem;
+        }
+        .education-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .education-date {
+            color: var(--accent-red);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: rgba(230,57,70,0.15);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+        .education-desc {
+            color: var(--text-muted);
+        }
+
         .experience-timeline {
             max-width: 850px;
             margin: 0 auto;
@@ -377,7 +418,7 @@
 
         /* Mobile: one card per slide, no side buttons */
         @media (max-width: 768px) {
-            .services-grid, .skills-container { grid-template-columns: 1fr; }
+            .services-grid, .education-grid { grid-template-columns: 1fr; }
             .hero-title { font-size: 2.5rem; }
             .nav-links { display: none; flex-direction: column; background: #0f1115; position: absolute; top: 70px; left: 0; width: 100%; padding: 1.5rem; gap: 1rem; }
             .nav-links.active { display: flex; }
@@ -422,6 +463,7 @@
                 <a href="#projects-analytics">Analytics</a>
                 <a href="#projects-uiux">UI/UX</a>
                 <a href="#projects-dev">Dev</a>
+                <a href="#education">Education</a>
                 <a href="#contact">Contact</a>
                 <a href="#" class="btn-resume" style="padding:0.5rem 1.2rem;" id="resumeNav">📄 Resume</a>
             </div>
@@ -529,12 +571,47 @@
         </div>
     </section>
 
-    <!-- Experience & Skills -->
-    <section id="experience" class="section"><div class="container"><h2 class="section-title">Professional Experience</h2><div class="experience-timeline"><div class="experience-item"><div class="experience-date">2021 – Present</div><h3>Freelance Developer, Designer & Analyst</h3><p>Self-Employed · Clients: Tech startups, SMEs</p><ul style="margin-top:1rem; padding-left:1.5rem;"><li>Designed The Interval Pause Lab, increasing engagement through data-informed UX.</li><li>Delivered responsive apps using React, Node, Django; used analytics for iterative improvements.</li><li>Reduced cross-browser issues by 40% through systematic testing.</li></ul></div></div></div></section>
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <div class="experience-date">2021 – Present</div>
+                    <h3>Freelance Developer, Designer & Analyst</h3>
+                    <p>Self-Employed · Clients: Tech startups, SMEs</p>
+                    <ul style="margin-top:1rem; padding-left:1.5rem;">
+                        <li>Designed The Interval Pause Lab, increasing engagement through data-informed UX.</li>
+                        <li>Delivered responsive apps using React, Node, Django; used analytics for iterative improvements.</li>
+                        <li>Reduced cross-browser issues by 40% through systematic testing.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="skills" class="section"><div class="container"><h2 class="section-title">Technical & Analytical Expertise</h2><div class="skills-container"><div class="skill-category"><h3><i class="fas fa-paint-brush"></i> UI/UX</h3><div class="skill-list"><span class="skill-tag">Figma</span><span class="skill-tag">Adobe XD</span><span class="skill-tag">Wireframing</span><span class="skill-tag">Usability Testing</span></div></div><div class="skill-category"><h3><i class="fas fa-code"></i> Dev</h3><div class="skill-list"><span class="skill-tag">React/Node</span><span class="skill-tag">Python/Django</span><span class="skill-tag">SQL/NoSQL</span></div></div><div class="skill-category"><h3><i class="fas fa-chart-bar"></i> Analytics</h3><div class="skill-list"><span class="skill-tag">A/B Testing</span><span class="skill-tag">Data Storytelling</span><span class="skill-tag">Research</span></div></div></div></div></section>
+    <!-- EDUCATION SECTION (replaces Technical & Analytical Expertise) -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="education-title">Diploma in Information Communication Technology</div>
+                    <div class="education-date">2024</div>
+                    <div class="education-desc">Comprehensive training in software development, networking, database management, and IT project lifecycle. Built a strong foundation in full‑stack principles and system analysis.</div>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="education-title">Cybersecurity & Digital Forensics</div>
+                    <div class="education-date">Current (in progress)</div>
+                    <div class="education-desc">Specializing in threat detection, incident response, forensic investigation, and secure coding practices. Hands‑on experience with vulnerability assessment and ethical hacking methodologies.</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Contact -->
+    <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container contact-content" style="text-align:center;">
             <h2 class="section-title">Let's Connect</h2>
@@ -548,7 +625,9 @@
         </div>
     </section>
 
-    <footer><div class="container">© 2026 Grace Mutile – Full Stack · UI/UX · Analytics & Insight</div></footer>
+    <footer>
+        <div class="container">© 2026 Grace Mutile – Full Stack · UI/UX · Analytics & Insight</div>
+    </footer>
 
     <script>
         (function() {
@@ -577,7 +656,7 @@
                 if(el) el.addEventListener('click', (e) => { e.preventDefault(); downloadResume(); });
             });
 
-            // Dot indicators only (no side buttons)
+            // Dot indicators for carousels (no side buttons)
             function initCategoryDots(gridId, dotsId) {
                 const grid = document.getElementById(gridId);
                 const dotsContainer = document.getElementById(dotsId);
