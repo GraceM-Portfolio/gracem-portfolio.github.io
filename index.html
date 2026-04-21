@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Grace Mutile | Full Stack · UI/UX · Analytics – Refined Carousels</title>
+    <title>Grace Mutile | Full Stack · UI/UX · Analytics – One‑Card Carousels</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -18,7 +18,6 @@
             --bg-card: #1a1e26;
             --accent-red: #E63946;
             --accent-teal: #2CE8F5;
-            --accent-amber: #f5b042;
             --text-light: #F1F5F9;
             --text-muted: #b0b8c5;
             --border-light: rgba(255,255,255,0.08);
@@ -198,10 +197,11 @@
             color: transparent;
         }
 
-        /* carousel wrapper with overlay buttons */
+        /* carousel wrapper */
         .carousel-wrapper {
             position: relative;
         }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -210,9 +210,8 @@
             scroll-behavior: smooth;
             scrollbar-width: thin;
             -webkit-overflow-scrolling: touch;
-            scroll-snap-type: x mandatory;
-            padding: 0.25rem 0 1rem;
         }
+
         .project-card {
             background: var(--bg-card);
             border-radius: 24px;
@@ -222,7 +221,6 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            scroll-snap-align: start;
         }
         .project-card:hover {
             transform: translateY(-6px);
@@ -304,7 +302,7 @@
             color: white;
         }
 
-        /* side buttons overlay (only on mobile) */
+        /* side buttons (overlay, small) */
         .carousel-btn-side {
             position: absolute;
             top: 50%;
@@ -329,12 +327,8 @@
             color: #0b0e14;
             transform: translateY(-50%) scale(1.05);
         }
-        .prev-btn {
-            left: 0px;
-        }
-        .next-btn {
-            right: 0px;
-        }
+        .prev-btn { left: 4px; }
+        .next-btn { right: 4px; }
 
         /* dots */
         .carousel-dots {
@@ -414,7 +408,7 @@
             100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
         }
 
-        /* Mobile overrides */
+        /* Mobile: one card per slide, arrows visible */
         @media (max-width: 768px) {
             .services-grid, .skills-container { grid-template-columns: 1fr; }
             .hero-title { font-size: 2.5rem; }
@@ -422,31 +416,35 @@
             .nav-links.active { display: flex; }
             .menu-toggle { display: flex; }
 
-            /* carousel horizontal scroll */
+            /* Carousel: exactly one card per slide */
             .projects-grid {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
-                gap: 1.2rem;
-                padding: 0.5rem 0 1rem 0;
+                overflow-x: auto;
                 scroll-snap-type: x mandatory;
+                gap: 1rem;
+                scroll-padding: 0 24px;
+                padding: 0.25rem 0 1rem 0;
             }
             .projects-grid .project-card {
-                flex: 0 0 85%;
-                min-width: 260px;
+                flex: 0 0 calc(100% - 48px);  /* full width minus side margins */
+                min-width: 0;
                 scroll-snap-align: start;
+                margin: 0 4px;
             }
-            /* show side buttons as overlay */
+            /* adjust container padding to make card full but with small gaps */
+            .container {
+                padding: 0 16px;
+            }
             .carousel-btn-side {
                 display: flex;
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
             }
-            /* add padding to grid so buttons don't overlap content too much */
-            .projects-grid {
-                scroll-padding: 0 30px;
-            }
-            .category-section .container {
-                position: relative;
-            }
+            .prev-btn { left: 2px; }
+            .next-btn { right: 2px; }
         }
 
         @media (min-width: 769px) {
@@ -612,7 +610,7 @@
 
     <script>
         (function() {
-            // Mobile menu toggle
+            // Mobile menu
             const toggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
             if(toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('active'));
@@ -631,13 +629,13 @@
                 });
             });
 
-            // Resume alert
+            // Resume
             function downloadResume() { alert("📄 Resume demo: PDF will be available for download."); }
             document.querySelectorAll('#resumeNav, #downloadResumeHero').forEach(el => {
                 if(el) el.addEventListener('click', (e) => { e.preventDefault(); downloadResume(); });
             });
 
-            // Carousel logic (side buttons + dots)
+            // Carousel: side buttons + dots (one full card per snap)
             function initCategoryCarousel(gridId, prevBtnClass, nextBtnClass, dotsId) {
                 const grid = document.getElementById(gridId);
                 if(!grid) return;
@@ -649,7 +647,7 @@
 
                 function updateDots() {
                     if(!dotsContainer) return;
-                    const cards = Array.from(grid.children).filter(card => card.style.display !== 'none');
+                    const cards = Array.from(grid.children);
                     visibleCards = cards;
                     dotsContainer.innerHTML = '';
                     if(visibleCards.length <= 1) {
@@ -741,7 +739,7 @@
             initCategoryCarousel('grid-uiux', '.prev-uiux', '.next-uiux', 'dots-uiux');
             initCategoryCarousel('grid-dev', '.prev-dev', '.next-dev', 'dots-dev');
 
-            // add footer resume link
+            // footer resume
             const footerDiv = document.querySelector('footer .container');
             if(footerDiv && !document.getElementById('footerResume')) {
                 const resumeLink = document.createElement('div');
