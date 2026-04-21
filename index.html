@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Grace Mutile | Full Stack · UI/UX · Analytics – One‑Card Carousels</title>
+    <title>Grace Mutile | Full Stack · UI/UX · Analytics – Clean Carousels (no buttons)</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -197,11 +197,6 @@
             color: transparent;
         }
 
-        /* carousel wrapper */
-        .carousel-wrapper {
-            position: relative;
-        }
-
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -302,34 +297,6 @@
             color: white;
         }
 
-        /* side buttons (overlay, small) */
-        .carousel-btn-side {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
-            border-radius: 40px;
-            background: rgba(15, 17, 21, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--accent-teal);
-            color: var(--accent-teal);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: 0.2s;
-            font-size: 1rem;
-        }
-        .carousel-btn-side:hover {
-            background: var(--accent-teal);
-            color: #0b0e14;
-            transform: translateY(-50%) scale(1.05);
-        }
-        .prev-btn { left: 4px; }
-        .next-btn { right: 4px; }
-
         /* dots */
         .carousel-dots {
             display: flex;
@@ -408,7 +375,7 @@
             100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
         }
 
-        /* Mobile: one card per slide, arrows visible */
+        /* Mobile: one card per slide, no side buttons */
         @media (max-width: 768px) {
             .services-grid, .skills-container { grid-template-columns: 1fr; }
             .hero-title { font-size: 2.5rem; }
@@ -416,7 +383,6 @@
             .nav-links.active { display: flex; }
             .menu-toggle { display: flex; }
 
-            /* Carousel: exactly one card per slide */
             .projects-grid {
                 display: flex;
                 flex-direction: row;
@@ -428,29 +394,17 @@
                 padding: 0.25rem 0 1rem 0;
             }
             .projects-grid .project-card {
-                flex: 0 0 calc(100% - 48px);  /* full width minus side margins */
+                flex: 0 0 calc(100% - 48px);
                 min-width: 0;
                 scroll-snap-align: start;
                 margin: 0 4px;
             }
-            /* adjust container padding to make card full but with small gaps */
             .container {
                 padding: 0 16px;
             }
-            .carousel-btn-side {
-                display: flex;
-                width: 32px;
-                height: 32px;
-                font-size: 0.8rem;
-            }
-            .prev-btn { left: 2px; }
-            .next-btn { right: 2px; }
         }
 
         @media (min-width: 769px) {
-            .carousel-btn-side {
-                display: none;
-            }
             .projects-grid {
                 overflow-x: visible;
                 display: grid;
@@ -509,23 +463,19 @@
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-chart-simple"></i> 📊 Analytics & Insight</h2>
             </div>
-            <div class="carousel-wrapper">
-                <button class="carousel-btn-side prev-btn prev-analytics"><i class="fas fa-chevron-left"></i></button>
-                <div class="projects-grid" id="grid-analytics">
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span></div><div class="project-title">Email Security Dashboard</div><div class="project-desc">Real-time metrics, quarantine management, trend visualization.</div><div class="project-highlight">📊 Chart.js · Tailwind · Dark mode</div><div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">Chart.js</span><span class="project-tag">Data Viz</span></div><div class="project-links"><a href="https://GraceM-Portfolio.github.io/email-dashboard/" class="project-link live" target="_blank">Live Demo</a><a href="https://github.com/gracem-portfolio/email-dashboard" class="project-link" target="_blank">GitHub</a></div></div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/archives-preview.jpg'); background-color:#2a2e3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span></div><div class="project-title">Case File Archives</div><div class="project-desc">Strategic research on power dynamics, covert language patterns.</div><div class="project-highlight">📈 Linguistic forensics & choice architecture</div><div class="project-tags"><span class="project-tag">Research Writing</span><span class="project-tag">Frameworks</span></div><div class="project-links"><a href="https://theintervalpause.com/archives" class="project-link live" target="_blank">Visit Site</a></div></div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span><span>Dev</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Behavioral intelligence platform, linguistic analysis & UX research.</div><div class="project-highlight">📊 +25% session duration · 1,200+ readers</div><div class="project-tags"><span class="project-tag">Behavioral Analytics</span><span class="project-tag">Figma</span><span class="project-tag">A/B Testing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live" target="_blank">Visit Site</a></div></div>
-                    </div>
+            <div class="projects-grid" id="grid-analytics">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span></div><div class="project-title">Email Security Dashboard</div><div class="project-desc">Real-time metrics, quarantine management, trend visualization.</div><div class="project-highlight">📊 Chart.js · Tailwind · Dark mode</div><div class="project-tags"><span class="project-tag">JavaScript</span><span class="project-tag">Chart.js</span><span class="project-tag">Data Viz</span></div><div class="project-links"><a href="https://GraceM-Portfolio.github.io/email-dashboard/" class="project-link live" target="_blank">Live Demo</a><a href="https://github.com/gracem-portfolio/email-dashboard" class="project-link" target="_blank">GitHub</a></div></div>
                 </div>
-                <button class="carousel-btn-side next-btn next-analytics"><i class="fas fa-chevron-right"></i></button>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/archives-preview.jpg'); background-color:#2a2e3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span></div><div class="project-title">Case File Archives</div><div class="project-desc">Strategic research on power dynamics, covert language patterns.</div><div class="project-highlight">📈 Linguistic forensics & choice architecture</div><div class="project-tags"><span class="project-tag">Research Writing</span><span class="project-tag">Frameworks</span></div><div class="project-links"><a href="https://theintervalpause.com/archives" class="project-link live" target="_blank">Visit Site</a></div></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>Analytics & Insight</span><span>UI/UX</span><span>Dev</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Behavioral intelligence platform, linguistic analysis & UX research.</div><div class="project-highlight">📊 +25% session duration · 1,200+ readers</div><div class="project-tags"><span class="project-tag">Behavioral Analytics</span><span class="project-tag">Figma</span><span class="project-tag">A/B Testing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live" target="_blank">Visit Site</a></div></div>
+                </div>
             </div>
             <div id="dots-analytics" class="carousel-dots"></div>
         </div>
@@ -537,23 +487,19 @@
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-palette"></i> 🎨 UI/UX Design</h2>
             </div>
-            <div class="carousel-wrapper">
-                <button class="carousel-btn-side prev-btn prev-uiux"><i class="fas fa-chevron-left"></i></button>
-                <div class="projects-grid" id="grid-uiux">
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/1.png'); background-color:#2c3e4e;"></div>
-                        <div class="project-info"><div class="project-categories"><span>UI/UX Design</span></div><div class="project-title">Corporate Theme</div><div class="project-desc">Modern design system, Figma prototypes, React implementation.</div><div class="project-highlight">⚡ 95+ Lighthouse score</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">React.js</span><span class="project-tag">Responsive</span></div><div class="project-links"><a href="#" class="project-link live">Case Study</a></div></div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Analytics</span></div><div class="project-title">Interval Pause UX Audit</div><div class="project-desc">Complete redesign based on heatmaps and user interviews, increased retention.</div><div class="project-highlight">🔍 40% decrease in bounce rate</div><div class="project-tags"><span class="project-tag">User Testing</span><span class="project-tag">Wireframing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">View Site</a></div></div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Dev</span></div><div class="project-title">Dashboard UI Redesign</div><div class="project-desc">Accessible dark theme, intuitive data filtering, mobile-first approach.</div><div class="project-highlight">📱 WCAG 2.1 AA compliant</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">Design System</span></div><div class="project-links"><a href="#" class="project-link live">Prototype</a></div></div>
-                    </div>
+            <div class="projects-grid" id="grid-uiux">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/1.png'); background-color:#2c3e4e;"></div>
+                    <div class="project-info"><div class="project-categories"><span>UI/UX Design</span></div><div class="project-title">Corporate Theme</div><div class="project-desc">Modern design system, Figma prototypes, React implementation.</div><div class="project-highlight">⚡ 95+ Lighthouse score</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">React.js</span><span class="project-tag">Responsive</span></div><div class="project-links"><a href="#" class="project-link live">Case Study</a></div></div>
                 </div>
-                <button class="carousel-btn-side next-btn next-uiux"><i class="fas fa-chevron-right"></i></button>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Analytics</span></div><div class="project-title">Interval Pause UX Audit</div><div class="project-desc">Complete redesign based on heatmaps and user interviews, increased retention.</div><div class="project-highlight">🔍 40% decrease in bounce rate</div><div class="project-tags"><span class="project-tag">User Testing</span><span class="project-tag">Wireframing</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">View Site</a></div></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/dashboard-preview.jpg'); background-color:#1e2a3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>UI/UX Design</span><span>Dev</span></div><div class="project-title">Dashboard UI Redesign</div><div class="project-desc">Accessible dark theme, intuitive data filtering, mobile-first approach.</div><div class="project-highlight">📱 WCAG 2.1 AA compliant</div><div class="project-tags"><span class="project-tag">Figma</span><span class="project-tag">Design System</span></div><div class="project-links"><a href="#" class="project-link live">Prototype</a></div></div>
+                </div>
             </div>
             <div id="dots-uiux" class="carousel-dots"></div>
         </div>
@@ -565,23 +511,19 @@
             <div class="category-header">
                 <h2 class="category-title"><i class="fas fa-code-branch"></i> 💻 Web Development</h2>
             </div>
-            <div class="carousel-wrapper">
-                <button class="carousel-btn-side prev-btn prev-dev"><i class="fas fa-chevron-left"></i></button>
-                <div class="projects-grid" id="grid-dev">
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/store.png'); background-color:#2c3e2f;"></div>
-                        <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">E‑commerce Store</div><div class="project-desc">Full-stack MERN app with cart, auth, and optimized checkout.</div><div class="project-highlight">🛒 30% faster checkout · 22% conversion lift</div><div class="project-tags"><span class="project-tag">React.js</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div><div class="project-links"><a href="#" class="project-link live">Demo</a><a href="#" class="project-link">GitHub</a></div></div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/tourism.png'); background-color:#3a4a3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">Tourism Platform</div><div class="project-desc">Interactive maps, analytics integration, 10k+ monthly visitors.</div><div class="project-highlight">🗺️ 40% engagement rate</div><div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Maps API</span><span class="project-tag">Analytics</span></div><div class="project-links"><a href="#" class="project-link live">Live Site</a></div></div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
-                        <div class="project-info"><div class="project-categories"><span>Web Development</span><span>Analytics</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Custom CMS, performance optimized, behavioral tracking.</div><div class="project-highlight">⚡ Lighthouse 98 · Core Web Vitals</div><div class="project-tags"><span class="project-tag">HTML/CSS/JS</span><span class="project-tag">Node</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">Visit</a></div></div>
-                    </div>
+            <div class="projects-grid" id="grid-dev">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/store.png'); background-color:#2c3e2f;"></div>
+                    <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">E‑commerce Store</div><div class="project-desc">Full-stack MERN app with cart, auth, and optimized checkout.</div><div class="project-highlight">🛒 30% faster checkout · 22% conversion lift</div><div class="project-tags"><span class="project-tag">React.js</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div><div class="project-links"><a href="#" class="project-link live">Demo</a><a href="#" class="project-link">GitHub</a></div></div>
                 </div>
-                <button class="carousel-btn-side next-btn next-dev"><i class="fas fa-chevron-right"></i></button>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/tourism.png'); background-color:#3a4a3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>Web Development</span></div><div class="project-title">Tourism Platform</div><div class="project-desc">Interactive maps, analytics integration, 10k+ monthly visitors.</div><div class="project-highlight">🗺️ 40% engagement rate</div><div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Maps API</span><span class="project-tag">Analytics</span></div><div class="project-links"><a href="#" class="project-link live">Live Site</a></div></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('images/interval-pause-lab.jpg'); background-color:#1e2a3a;"></div>
+                    <div class="project-info"><div class="project-categories"><span>Web Development</span><span>Analytics</span></div><div class="project-title">The Interval Pause Lab</div><div class="project-desc">Custom CMS, performance optimized, behavioral tracking.</div><div class="project-highlight">⚡ Lighthouse 98 · Core Web Vitals</div><div class="project-tags"><span class="project-tag">HTML/CSS/JS</span><span class="project-tag">Node</span></div><div class="project-links"><a href="https://theintervalpause.com" class="project-link live">Visit</a></div></div>
+                </div>
             </div>
             <div id="dots-dev" class="carousel-dots"></div>
         </div>
@@ -610,7 +552,7 @@
 
     <script>
         (function() {
-            // Mobile menu
+            // Mobile menu toggle
             const toggle = document.getElementById('menuToggle');
             const navLinks = document.getElementById('navLinks');
             if(toggle) toggle.addEventListener('click', () => navLinks.classList.toggle('active'));
@@ -635,18 +577,15 @@
                 if(el) el.addEventListener('click', (e) => { e.preventDefault(); downloadResume(); });
             });
 
-            // Carousel: side buttons + dots (one full card per snap)
-            function initCategoryCarousel(gridId, prevBtnClass, nextBtnClass, dotsId) {
+            // Dot indicators only (no side buttons)
+            function initCategoryDots(gridId, dotsId) {
                 const grid = document.getElementById(gridId);
-                if(!grid) return;
-                const prevBtn = document.querySelector(prevBtnClass);
-                const nextBtn = document.querySelector(nextBtnClass);
                 const dotsContainer = document.getElementById(dotsId);
+                if(!grid || !dotsContainer) return;
                 let currentIndex = 0;
                 let visibleCards = [];
 
                 function updateDots() {
-                    if(!dotsContainer) return;
                     const cards = Array.from(grid.children);
                     visibleCards = cards;
                     dotsContainer.innerHTML = '';
@@ -660,7 +599,7 @@
                         dot.classList.add('dot');
                         if(idx === currentIndex) dot.classList.add('active');
                         dot.addEventListener('click', () => {
-                            scrollToCard(visibleCards[idx]);
+                            visibleCards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                             setActiveDot(idx);
                         });
                         dotsContainer.appendChild(dot);
@@ -674,11 +613,6 @@
                         if(i === index) dot.classList.add('active');
                         else dot.classList.remove('active');
                     });
-                }
-
-                function scrollToCard(card) {
-                    if(!card) return;
-                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
                 }
 
                 function findClosestCard() {
@@ -706,26 +640,6 @@
                     }
                 }
 
-                function scrollPrev() {
-                    const cards = visibleCards.length ? visibleCards : Array.from(grid.children);
-                    if(cards.length <= 1) return;
-                    let newIndex = currentIndex - 1;
-                    if(newIndex < 0) newIndex = cards.length - 1;
-                    scrollToCard(cards[newIndex]);
-                    setActiveDot(newIndex);
-                }
-
-                function scrollNext() {
-                    const cards = visibleCards.length ? visibleCards : Array.from(grid.children);
-                    if(cards.length <= 1) return;
-                    let newIndex = currentIndex + 1;
-                    if(newIndex >= cards.length) newIndex = 0;
-                    scrollToCard(cards[newIndex]);
-                    setActiveDot(newIndex);
-                }
-
-                if(prevBtn) prevBtn.addEventListener('click', scrollPrev);
-                if(nextBtn) nextBtn.addEventListener('click', scrollNext);
                 grid.addEventListener('scroll', () => { requestAnimationFrame(onScrollUpdate); });
                 updateDots();
                 if(window.innerWidth <= 768) setTimeout(() => { onScrollUpdate(); }, 100);
@@ -735,11 +649,11 @@
                 });
             }
 
-            initCategoryCarousel('grid-analytics', '.prev-analytics', '.next-analytics', 'dots-analytics');
-            initCategoryCarousel('grid-uiux', '.prev-uiux', '.next-uiux', 'dots-uiux');
-            initCategoryCarousel('grid-dev', '.prev-dev', '.next-dev', 'dots-dev');
+            initCategoryDots('grid-analytics', 'dots-analytics');
+            initCategoryDots('grid-uiux', 'dots-uiux');
+            initCategoryDots('grid-dev', 'dots-dev');
 
-            // footer resume
+            // footer resume link
             const footerDiv = document.querySelector('footer .container');
             if(footerDiv && !document.getElementById('footerResume')) {
                 const resumeLink = document.createElement('div');
